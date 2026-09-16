@@ -16,13 +16,11 @@
     a{color:#1859ad;text-decoration:none;text-underline-offset:3px}a:hover{text-decoration:underline}
     a:focus-visible,.table-wrap:focus-visible{outline:3px solid #1c5bba;outline-offset:3px}
     .table-wrap{overflow-x:auto;margin-bottom:16px}
-    table{width:100%;min-width:735px;border-collapse:collapse;font-size:.875rem;font-variant-numeric:tabular-nums}
+    table{width:100%;min-width:600px;border-collapse:collapse;font-size:.875rem;font-variant-numeric:tabular-nums}
     th,td{padding:12px 11px;border-bottom:1px solid #e2e7ed;text-align:right;vertical-align:middle}
     thead th{font-weight:500;color:#526171;background:#f5f7fa}
-    thead .groups th{font-size:.75rem;padding-top:8px;padding-bottom:7px}
-    thead .groups th[scope=colgroup]{text-align:center}thead tr:not(.groups) th{text-align:right}
     th:first-child{text-align:left}tbody th{font-weight:550;min-width:185px}
-    td.metric{white-space:nowrap;min-width:105px}th.assessment,td.assessment{text-align:left;width:32%;min-width:245px}
+    td.metric{white-space:nowrap;min-width:105px}th.assessment,td.assessment{text-align:left;width:48%;min-width:245px}
     .count{display:block;font-size:.75rem;font-weight:400;color:#526171}
     .leader{background:#eff5ff}.leader th a{font-weight:650}
     .note{font-size:.875rem;max-width:1000px}.definitions{display:grid;gap:4px;margin-bottom:0}
@@ -36,40 +34,37 @@
 <body><main>
   <h1>Topic classification benchmark</h1>
   <p class="scope">5 models · 860 specific topic labels · 800 scored messages</p>
-  <p class="lead"><strong>GLiClass Ultra was the best starting point in this test.</strong> Treat its labels as suggestions: the complete label list was right on only 34% of messages.</p>
+  <p class="lead"><strong>GLiClass Ultra had the most accurate top label.</strong> It still needs human review.</p>
   <div class="table-wrap" role="region" aria-label="Model results; scroll horizontally on small screens" tabindex="0">
     <table>
       <thead>
-        <tr class="groups"><th scope="col" rowspan="2">Model</th><th scope="colgroup">One best guess</th><th scope="colgroup">Zero or more labels</th><th class="assessment" scope="col" rowspan="2">Assessment in this test</th></tr>
-        <tr><th scope="col">First choice<br>right</th><th scope="col">Chosen labels<br>right</th></tr>
+        <tr><th scope="col">Model</th><th scope="col">Top label accuracy</th><th class="assessment" scope="col">Assessment in this test</th></tr>
       </thead>
       <tbody><tr data-model="gliclass-ultra" class="leader">
           <th scope="row"><a href="https://huggingface.co/knowledgator/gliclass-multilang-ultra">GLiClass Ultra</a></th>
-          <td class="metric">70.2%<span class="count">396/564</span></td><td class="metric">48.1%</td><td class="assessment">Best starting point. Finds more topics, but adds many wrong labels.</td></tr>
+          <td class="metric">70.2%<span class="count">396/564</span></td><td class="assessment">Best here, but still needs human review.</td></tr>
 <tr data-model="bge-m3-nli">
           <th scope="row"><a href="https://huggingface.co/MoritzLaurer/bge-m3-zeroshot-v2.0">BGE-M3 zero-shot v2.0</a></th>
-          <td class="metric">57.4%<span class="count">323/563</span></td><td class="metric">78.5%</td><td class="assessment">Fewer false alarms, but misses most relevant labels.</td></tr>
+          <td class="metric">57.4%<span class="count">323/563</span></td><td class="assessment">Second best. Still often picks the wrong topic.</td></tr>
 <tr data-model="gliner25">
           <th scope="row"><a href="https://huggingface.co/fastino/gliner2.5-multi-v1">GLiNER2.5</a></th>
-          <td class="metric">55.0%<span class="count">310/564</span></td><td class="metric">34.5%</td><td class="assessment">Many wrong and missed labels. Needs substantial review.</td></tr>
+          <td class="metric">55.0%<span class="count">310/564</span></td><td class="assessment">Slightly better than Mini. Needs substantial review.</td></tr>
 <tr data-model="gliclass-mini">
           <th scope="row"><a href="https://huggingface.co/knowledgator/gliclass-multilang-mini">GLiClass Mini</a></th>
-          <td class="metric">51.0%<span class="count">287/563</span></td><td class="metric">36.0%</td><td class="assessment">Similar to GLiNER here. Too imprecise for automatic labeling.</td></tr>
+          <td class="metric">51.0%<span class="count">287/563</span></td><td class="assessment">About half of its top choices were wrong.</td></tr>
 <tr data-model="mdeberta-nli">
           <th scope="row"><a href="https://huggingface.co/MoritzLaurer/mDeBERTa-v3-base-xnli-multilingual-nli-2mil7">mDeBERTa NLI</a></th>
-          <td class="metric">12.3%<span class="count">69/563</span></td><td class="metric">7.2%</td><td class="assessment">Weakest here. Most of its selected labels were wrong.</td></tr></tbody>
+          <td class="metric">12.3%<span class="count">69/563</span></td><td class="assessment">Weakest here. Most top choices were wrong.</td></tr></tbody>
     </table>
   </div>
   <div class="note definitions">
-    <p><strong>First choice right:</strong> the top suggestion matches one of the right labels. Only messages with a matching label count.</p>
-    <p><strong>Chosen labels right:</strong> of the labels selected, how many were correct. This accepts labels above a chosen score, allowing several labels or none.</p>
-    <p>Higher is better in both score columns.</p>
+    <p><strong>Top label accuracy:</strong> how often the highest-scoring label was correct. Only messages with a matching label count. Higher is better.</p>
   </div>
   <h2>Practical limits compared with an LLM</h2>
   <ul class="findings">
-    <li><strong>Limited room for text and labels.</strong> Input limits: GLiClass Mini/Ultra <strong>1,024 tokens</strong>; GLiNER <strong>4,096</strong>; BGE <strong>8,192</strong>; mDeBERTa <strong>512</strong>. Tokens are pieces of words. GLiClass and GLiNER fit about 55 and 240 labels per message in our test, out of 860. A shortlist can leave out the right label.</li>
+    <li><strong>Limited room for text and labels.</strong> Input limits: GLiClass Mini/Ultra <strong>1,024 tokens</strong>; GLiNER <strong>4,096</strong>; BGE <strong>8,192</strong>; mDeBERTa <strong>512</strong>. GLiClass and GLiNER fit about 55 and 240 labels per message in our test, out of 860. A shortlist can leave out the right label.</li>
     <li><strong>Multiple labels are unreliable.</strong> Selecting several labels needs a score cutoff. We have not found a cutoff that reliably separates correct labels from incorrect ones.</li>
-    <li><strong>No “not enough context” choice.</strong> In this setup, models cannot choose that answer. They return labels or an empty list.</li>
+    <li><strong>No built-in “not enough context” answer.</strong> An empty label list does not tell us whether information is missing.</li>
     <li><strong>Limited answers.</strong> These runs return supplied labels and scores. They do not suggest new topics.</li>
     <li><strong>Fine details get mixed up.</strong> Models can confuse similar topics and select labels the text does not support. A high score can still be wrong.</li>
   </ul>

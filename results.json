@@ -15,6 +15,7 @@
   "earlier_results_inspected": true,
   "first_choice_rule": "Exactly one highest-scoring evaluated label per message; no score threshold. Same previously selected model configurations and frozen 800 evaluation texts.",
   "first_choice_denominator": "First choice matches any positive reference label, on messages with at least one positive label. A selected uncertain reference pair is excluded from the denominator and reported separately.",
+  "displayed_metric": "Top label accuracy: highest-scoring label is correct on messages with a matching reference label.",
   "model_selection": "Settings and score cutoffs chosen on 200 tuning messages; 800 scored separately. No new tuning for forced first-choice evaluation.",
   "shortlists": "GLiClass and GLiNER jointly score Nemotron 3 Embed 8B BF16 shortlists that fit their input. BGE-M3 and mDeBERTa score all 860 labels separately. Shortlist misses count as misses.",
   "practical_limits": {
@@ -58,7 +59,7 @@
     },
     "context_scope": "Input limits used by the classification pipelines. Candidate counts depend on message and label lengths.",
     "multiple_labels": "These models support multiple labels. Tuned score cutoffs were used, but reliable separation of correct and incorrect labels has not been established for this task.",
-    "missing_context": "The tested decision rules output labels or an empty list; they cannot return a separate not-enough-context answer in this setup.",
+    "missing_context": "No built-in not-enough-context answer. An empty label list does not distinguish missing information from no matching topic; a separate label or decision rule would be needed.",
     "llm_comparison": "Larger prompts and flexible generated responses are capabilities, not a measured LLM accuracy result in this report.",
     "llm_source": "https://huggingface.co/Qwen/Qwen3.8-27B"
   },
@@ -86,7 +87,7 @@
         "no_match_messages_with_wrong_labels": 73,
         "threshold": 0.7759445905685425
       },
-      "assessment": "Best starting point. Finds more topics, but adds many wrong labels."
+      "assessment": "Best here, but still needs human review."
     },
     {
       "name": "BGE-M3 zero-shot v2.0",
@@ -111,7 +112,7 @@
         "no_match_messages_with_wrong_labels": 1,
         "threshold": 0.9814534187316895
       },
-      "assessment": "Fewer false alarms, but misses most relevant labels."
+      "assessment": "Second best. Still often picks the wrong topic."
     },
     {
       "name": "GLiNER2.5",
@@ -136,7 +137,7 @@
         "no_match_messages_with_wrong_labels": 134,
         "threshold": 0.130859375
       },
-      "assessment": "Many wrong and missed labels. Needs substantial review."
+      "assessment": "Slightly better than Mini. Needs substantial review."
     },
     {
       "name": "GLiClass Mini",
@@ -161,7 +162,7 @@
         "no_match_messages_with_wrong_labels": 126,
         "threshold": 0.13568955659866333
       },
-      "assessment": "Similar to GLiNER here. Too imprecise for automatic labeling."
+      "assessment": "About half of its top choices were wrong."
     },
     {
       "name": "mDeBERTa NLI",
@@ -186,7 +187,7 @@
         "no_match_messages_with_wrong_labels": 92,
         "threshold": 0.9974557757377625
       },
-      "assessment": "Weakest here. Most of its selected labels were wrong."
+      "assessment": "Weakest here. Most top choices were wrong."
     }
   ],
   "reference_sha256": "352c817ffbe72b5ac6ede0ac9d6e826f63a77c8924e9d0e11022fec86cfad54d",
