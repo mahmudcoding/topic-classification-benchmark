@@ -17,7 +17,10 @@
   "first_choice_denominator": "First choice matches any positive reference label, on messages with at least one positive label. A selected uncertain reference pair is excluded from the denominator and reported separately.",
   "displayed_metric": "Top label accuracy: highest-scoring label is correct on messages with a matching reference label.",
   "displayed_evaluation_counts": {
+    "messages_total": 564,
     "messages_with_matching_topics": 564,
+    "messages_without_matching_topics": 0,
+    "topic_presence_counting_rule": "Count each message once if it has at least one matching topic, otherwise zero.",
     "scored_per_model": {
       "gliclass-ultra": 564,
       "bge-m3-nli": 563,
