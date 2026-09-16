@@ -33,7 +33,7 @@
 </head>
 <body><main>
   <h1>Topic classification benchmark</h1>
-  <p class="scope">5 models · 860 specific topic labels · 800 scored messages</p>
+  <p class="scope">5 models · 860 specific topic labels · 563–564 scored messages per model</p>
   <p class="lead"><strong>GLiClass Ultra had the most accurate top label.</strong> It still needs human review.</p>
   <div class="table-wrap" role="region" aria-label="Model results; scroll horizontally on small screens" tabindex="0">
     <table>
@@ -62,14 +62,14 @@
   </div>
   <h2>Practical limits compared with an LLM</h2>
   <ul class="findings">
-    <li><strong>Limited room for text and labels.</strong> Input limits: GLiClass Mini/Ultra <strong>1,024 tokens</strong>; GLiNER <strong>4,096</strong>; BGE <strong>8,192</strong>; mDeBERTa <strong>512</strong>. GLiClass and GLiNER fit about 55 and 240 labels per message in our test, out of 860. A shortlist can leave out the right label.</li>
-    <li><strong>Multiple labels are unreliable.</strong> Selecting several labels needs a score cutoff. We have not found a cutoff that reliably separates correct labels from incorrect ones.</li>
-    <li><strong>No built-in “not enough context” answer.</strong> An empty label list does not tell us whether information is missing.</li>
+    <li><strong>Limited room for text and labels.</strong> Input limits: GLiClass Mini/Ultra <strong>1,024 tokens</strong>; GLiNER <strong>4,096</strong>; BGE <strong>8,192</strong>; mDeBERTa <strong>512</strong>. GLiClass and GLiNER fit about 52 and 236 labels per message in this comparison, out of 860. A shortlist can leave out the right label.</li>
+    <li><strong>Multiple labels are unreliable.</strong> Selecting several labels needs a score threshold. We have not found a threshold that reliably separates correct labels from incorrect ones.</li>
+    <li><strong>No built-in “not enough context” answer.</strong></li>
     <li><strong>Limited answers.</strong> These runs return supplied labels and scores. They do not suggest new topics.</li>
     <li><strong>Fine details get mixed up.</strong> Models can confuse similar topics and select labels the text does not support. A high score can still be wrong.</li>
   </ul>
-  <p class="note">A <a href="https://huggingface.co/Qwen/Qwen3.8-27B">long-context LLM</a> has room for more labels, rules and conversation history together. It can also be asked to explain choices, flag missing information or suggest new topics. It can still make mistakes.</p>
+  <p class="note">A <a href="https://huggingface.co/Qwen/Qwen3.8-27B">long-context LLM</a> has room for more labels and rules. If none of the topics match, it can suggest a new one.</p>
   <div class="method note">
-    <p><strong>How we tested:</strong> 1,000 real Telegram posts, comments and group messages from a frozen set of 32,245. We used 200 to choose settings, then scored the other 800. GLiClass and GLiNER received the closest labels that fit their input; BGE and mDeBERTa checked all 860. Missed shortlist labels count as misses.</p>
+    <p><strong>How we tested:</strong> We checked one highest-scoring label for each of 564 real Telegram posts, comments and group messages with at least one matching topic. No threshold was used. Uncertain choices were excluded, leaving 563–564 scored messages per model. GLiClass and GLiNER used the closest labels that fit their input; BGE and mDeBERTa considered all 860.</p>
   </div>
 </main></body></html>

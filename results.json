@@ -16,13 +16,36 @@
   "first_choice_rule": "Exactly one highest-scoring evaluated label per message; no score threshold. Same previously selected model configurations and frozen 800 evaluation texts.",
   "first_choice_denominator": "First choice matches any positive reference label, on messages with at least one positive label. A selected uncertain reference pair is excluded from the denominator and reported separately.",
   "displayed_metric": "Top label accuracy: highest-scoring label is correct on messages with a matching reference label.",
-  "model_selection": "Settings and score cutoffs chosen on 200 tuning messages; 800 scored separately. No new tuning for forced first-choice evaluation.",
+  "displayed_evaluation_counts": {
+    "messages_with_matching_topics": 564,
+    "scored_per_model": {
+      "gliclass-ultra": 564,
+      "bge-m3-nli": 563,
+      "gliner25": 564,
+      "gliclass-mini": 563,
+      "mdeberta-nli": 563
+    },
+    "uncertain_choices_excluded_per_model": {
+      "gliclass-ultra": 0,
+      "bge-m3-nli": 1,
+      "gliner25": 0,
+      "gliclass-mini": 1,
+      "mdeberta-nli": 1
+    },
+    "threshold_used": false
+  },
+  "model_selection": "Settings and score thresholds chosen on 200 tuning messages; 800 scored separately. No new tuning for forced first-choice evaluation.",
   "shortlists": "GLiClass and GLiNER jointly score Nemotron 3 Embed 8B BF16 shortlists that fit their input. BGE-M3 and mDeBERTa score all 860 labels separately. Shortlist misses count as misses.",
   "practical_limits": {
     "mean_candidate_labels_per_evaluation_message": {
       "gliclass-mini": 54.88,
       "gliclass-ultra": 54.93625,
       "gliner25": 240.275
+    },
+    "mean_candidate_labels_per_top_label_message": {
+      "gliclass-mini": 51.96625222024867,
+      "gliclass-ultra": 52.019503546099294,
+      "gliner25": 236.04609929078015
     },
     "tested_joint_context_tokens": {
       "gliclass-mini": 1024,
@@ -58,8 +81,8 @@
       }
     },
     "context_scope": "Input limits used by the classification pipelines. Candidate counts depend on message and label lengths.",
-    "multiple_labels": "These models support multiple labels. Tuned score cutoffs were used, but reliable separation of correct and incorrect labels has not been established for this task.",
-    "missing_context": "No built-in not-enough-context answer. An empty label list does not distinguish missing information from no matching topic; a separate label or decision rule would be needed.",
+    "multiple_labels": "These models support multiple labels. Tuned score thresholds were used, but reliable separation of correct and incorrect labels has not been established for this task.",
+    "missing_context": "No built-in not-enough-context answer.",
     "llm_comparison": "Larger prompts and flexible generated responses are capabilities, not a measured LLM accuracy result in this report.",
     "llm_source": "https://huggingface.co/Qwen/Qwen3.8-27B"
   },
