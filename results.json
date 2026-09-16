@@ -17,6 +17,22 @@
   "first_choice_denominator": "First choice matches any positive reference label, on messages with at least one positive label. A selected uncertain reference pair is excluded from the denominator and reported separately.",
   "model_selection": "Settings and score cutoffs chosen on 200 tuning messages; 800 scored separately. No new tuning for forced first-choice evaluation.",
   "shortlists": "GLiClass and GLiNER jointly score Nemotron 3 Embed 8B BF16 shortlists that fit their input. BGE-M3 and mDeBERTa score all 860 labels separately. Shortlist misses count as misses.",
+  "practical_limits": {
+    "mean_candidate_labels_per_evaluation_message": {
+      "gliclass-mini": 54.88,
+      "gliclass-ultra": 54.93625,
+      "gliner25": 240.275
+    },
+    "tested_joint_context_tokens": {
+      "gliclass-mini": 1024,
+      "gliclass-ultra": 1024,
+      "gliner25": 4096
+    },
+    "context_scope": "Recorded settings, not universal architecture limits. Candidate counts depend on message and label lengths.",
+    "missing_context": "The tested decision rules output labels or an empty list, without a separate insufficient-context outcome. An explicit label or additional check can be added.",
+    "llm_comparison": "Larger prompts and flexible generated responses are capabilities, not a measured LLM accuracy result in this report.",
+    "llm_source": "https://huggingface.co/Qwen/Qwen3.8-27B"
+  },
   "models": [
     {
       "name": "GLiClass Ultra",

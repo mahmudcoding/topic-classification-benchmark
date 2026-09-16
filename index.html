@@ -36,7 +36,7 @@
 <body><main>
   <h1>Topic classification benchmark</h1>
   <p class="scope">5 models · 860 specific topic labels · 800 scored messages</p>
-  <p class="lead"><strong>GLiClass Ultra was the best starting point in this test.</strong> It can suggest labels for review, but still makes too many mistakes for unattended labeling.</p>
+  <p class="lead"><strong>GLiClass Ultra was the best starting point in this test.</strong> Treat its labels as suggestions: the complete label list was right on only 34% of messages.</p>
   <div class="table-wrap" role="region" aria-label="Model results; scroll horizontally on small screens" tabindex="0">
     <table>
       <thead>
@@ -65,15 +65,16 @@
     <p><strong>Chosen labels right:</strong> of the labels selected, how many were correct. This accepts labels above a chosen score, allowing several labels or none.</p>
     <p>Higher is better in both score columns.</p>
   </div>
-  <h2>What this means</h2>
+  <h2>Practical limits compared with an LLM</h2>
   <ul class="findings">
-    <li><strong>A useful suggestion is not a complete answer.</strong> Ultra got the entire label list right on only 34% of messages.</li>
-    <li><strong>“No match” matters.</strong> Always choosing one label was wrong on all 236 messages with no matching label.</li>
+    <li><strong>Limited room for text and labels.</strong> With our settings, GLiClass considered about 55 labels per message and GLiNER 240, out of 860. A shortlist can leave out the right label.</li>
+    <li><strong>More labels mean more work.</strong> BGE and mDeBERTa compare each message with each label separately. Thousands of labels require thousands of comparisons.</li>
+    <li><strong>Missing context needs a separate decision.</strong> These runs can return no labels, but do not distinguish “no matching topic” from “not enough context.” That needs an explicit label or another check.</li>
+    <li><strong>Limited answers.</strong> These runs return supplied labels and scores. They do not write explanations or suggest new topics.</li>
     <li><strong>Fine details get mixed up.</strong> Ultra added “repair work” to an outage notice that gave no reason. A high score can still be wrong.</li>
-    <li><strong>These runs choose existing labels.</strong> New topics need a separate step.</li>
   </ul>
+  <p class="note">A <a href="https://huggingface.co/Qwen/Qwen3.8-27B">long-context LLM</a> has room for more labels, rules and conversation history together. It can also be asked to explain choices, flag missing information or suggest new topics. It can still make mistakes.</p>
   <div class="method note">
     <p><strong>How we tested:</strong> 1,000 real Telegram posts, comments and group messages from a frozen set of 32,245. We used 200 to choose settings, then scored the other 800. GLiClass and GLiNER received the closest labels that fit their input; BGE and mDeBERTa checked all 860. Missed shortlist labels count as misses.</p>
-    <p><strong>Limits:</strong> AI wrote the reference answers; they have not had independent human verification. The messages helped define the labels, and earlier results had already been examined. Uncertain answers are excluded. These are results for our tested setups, not guaranteed real-world accuracy.</p>
   </div>
 </main></body></html>
