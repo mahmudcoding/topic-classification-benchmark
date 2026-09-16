@@ -113,7 +113,7 @@
         "no_match_messages_with_wrong_labels": 73,
         "threshold": 0.7759445905685425
       },
-      "assessment": "Best here, but still chooses the wrong label."
+      "assessment": "Best here, but still needs review."
     },
     {
       "name": "BGE-M3 zero-shot v2.0",
