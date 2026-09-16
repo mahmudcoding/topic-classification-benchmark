@@ -1,0 +1,153 @@
+{
+  "evaluation_date": "2026-09-16",
+  "scope": "Specific topic labels for real Telegram messages; saved BF16 classifier runs.",
+  "evaluation_counts": {
+    "total": 800,
+    "with_labels": 564,
+    "one_label": 262,
+    "multiple_labels": 302,
+    "no_labels": 236
+  },
+  "tuning_messages": 200,
+  "labels": 860,
+  "reference_status": "AI-authored, not independently human-verified; development comparison.",
+  "catalogue_derived_from_sample": true,
+  "earlier_results_inspected": true,
+  "first_choice_rule": "Exactly one highest-scoring evaluated label per message; no score threshold. Same previously selected model configurations and frozen 800 evaluation texts.",
+  "first_choice_denominator": "First choice matches any positive reference label, on messages with at least one positive label. A selected uncertain reference pair is excluded from the denominator and reported separately.",
+  "model_selection": "Settings and score cutoffs chosen on 200 tuning messages; 800 scored separately. No new tuning for forced first-choice evaluation.",
+  "shortlists": "GLiClass and GLiNER jointly score Nemotron 3 Embed 8B BF16 shortlists that fit their input. BGE-M3 and mDeBERTa score all 860 labels separately. Shortlist misses count as misses.",
+  "models": [
+    {
+      "name": "GLiClass Ultra",
+      "model": "knowledgator/gliclass-multilang-ultra",
+      "first_choice_on_messages_with_labels": {
+        "messages": 564,
+        "judged": 564,
+        "correct": 396,
+        "incorrect": 168,
+        "uncertain_choice_excluded": 0,
+        "accuracy": 0.7021276595744681
+      },
+      "automatic_labeling": {
+        "precision": 0.4813477737665463,
+        "recall": 0.6254886630179828,
+        "f1": 0.5440326419585175,
+        "tp": 800,
+        "fp": 862,
+        "fn": 479,
+        "exact_label_set_accuracy": 0.33875,
+        "no_match_messages": 236,
+        "no_match_messages_with_wrong_labels": 73,
+        "threshold": 0.7759445905685425
+      },
+      "assessment": "Best starting point. Finds more topics, but adds many wrong labels."
+    },
+    {
+      "name": "BGE-M3 zero-shot v2.0",
+      "model": "MoritzLaurer/bge-m3-zeroshot-v2.0",
+      "first_choice_on_messages_with_labels": {
+        "messages": 564,
+        "judged": 563,
+        "correct": 323,
+        "incorrect": 240,
+        "uncertain_choice_excluded": 1,
+        "accuracy": 0.5737122557726465
+      },
+      "automatic_labeling": {
+        "precision": 0.7850467289719626,
+        "recall": 0.1313526192337764,
+        "f1": 0.22505023442732752,
+        "tp": 168,
+        "fp": 46,
+        "fn": 1111,
+        "exact_label_set_accuracy": 0.3475,
+        "no_match_messages": 236,
+        "no_match_messages_with_wrong_labels": 1,
+        "threshold": 0.9814534187316895
+      },
+      "assessment": "Fewer false alarms, but misses most relevant labels."
+    },
+    {
+      "name": "GLiNER2.5",
+      "model": "fastino/gliner2.5-multi-v1",
+      "first_choice_on_messages_with_labels": {
+        "messages": 564,
+        "judged": 564,
+        "correct": 310,
+        "incorrect": 254,
+        "uncertain_choice_excluded": 0,
+        "accuracy": 0.549645390070922
+      },
+      "automatic_labeling": {
+        "precision": 0.3454172366621067,
+        "recall": 0.39483971853010164,
+        "f1": 0.3684786574242977,
+        "tp": 505,
+        "fp": 957,
+        "fn": 774,
+        "exact_label_set_accuracy": 0.21875,
+        "no_match_messages": 236,
+        "no_match_messages_with_wrong_labels": 134,
+        "threshold": 0.130859375
+      },
+      "assessment": "Many wrong and missed labels. Needs substantial review."
+    },
+    {
+      "name": "GLiClass Mini",
+      "model": "knowledgator/gliclass-multilang-mini",
+      "first_choice_on_messages_with_labels": {
+        "messages": 564,
+        "judged": 563,
+        "correct": 287,
+        "incorrect": 276,
+        "uncertain_choice_excluded": 1,
+        "accuracy": 0.5097690941385435
+      },
+      "automatic_labeling": {
+        "precision": 0.3597560975609756,
+        "recall": 0.36903831118060987,
+        "f1": 0.36433809340023154,
+        "tp": 472,
+        "fp": 840,
+        "fn": 807,
+        "exact_label_set_accuracy": 0.21625,
+        "no_match_messages": 236,
+        "no_match_messages_with_wrong_labels": 126,
+        "threshold": 0.13568955659866333
+      },
+      "assessment": "Similar to GLiNER here. Too imprecise for automatic labeling."
+    },
+    {
+      "name": "mDeBERTa NLI",
+      "model": "MoritzLaurer/mDeBERTa-v3-base-xnli-multilingual-nli-2mil7",
+      "first_choice_on_messages_with_labels": {
+        "messages": 564,
+        "judged": 563,
+        "correct": 69,
+        "incorrect": 494,
+        "uncertain_choice_excluded": 1,
+        "accuracy": 0.12255772646536411
+      },
+      "automatic_labeling": {
+        "precision": 0.07158211521926053,
+        "recall": 0.26035965598123534,
+        "f1": 0.11229135053110774,
+        "tp": 333,
+        "fp": 4319,
+        "fn": 946,
+        "exact_label_set_accuracy": 0.185,
+        "no_match_messages": 236,
+        "no_match_messages_with_wrong_labels": 92,
+        "threshold": 0.9974557757377625
+      },
+      "assessment": "Weakest here. Most of its selected labels were wrong."
+    }
+  ],
+  "reference_sha256": "352c817ffbe72b5ac6ede0ac9d6e826f63a77c8924e9d0e11022fec86cfad54d",
+  "taxonomy_sha256": "019ac8cb0eb3fb2e2a76159eee4016470f87d533093021808a46bacf46461921",
+  "source_report_sha256": {
+    "multilabel": "23abaf6570896c789c58b1f72ed65602854b1b4b35945809343754b32e58d32c",
+    "first_choice": "18fb14b0e49eda3b8e4ccb75ace3cb0835abf595626f9db67a69e601d2fa56d4"
+  }
+}

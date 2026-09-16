@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Five topic classifiers tested on real Telegram messages. Plain-language results, strengths and limitations.">
+  <title>Topic classification benchmark · 5 models</title>
+  <style>
+    :root{font-family:ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#18212b;background:#fff;font-synthesis:none}
+    *{box-sizing:border-box}body{margin:0;font-size:1rem;line-height:1.55}
+    main{max-width:1100px;margin:auto;padding:44px 24px 40px}
+    h1{font-size:clamp(1.65rem,5vw,2.25rem);line-height:1.15;letter-spacing:-.035em;margin:0 0 12px;font-weight:650}
+    h2{font-size:1.05rem;line-height:1.3;margin:24px 0 10px;font-weight:650}
+    p{margin:0 0 16px}.scope,.note{color:#526171}.scope{margin-bottom:20px}
+    .lead{border-left:3px solid #1c5bba;padding-left:14px;margin-bottom:22px;max-width:900px}
+    a{color:#1859ad;text-decoration:none;text-underline-offset:3px}a:hover{text-decoration:underline}
+    a:focus-visible,.table-wrap:focus-visible{outline:3px solid #1c5bba;outline-offset:3px}
+    .table-wrap{overflow-x:auto;margin-bottom:16px}
+    table{width:100%;min-width:840px;border-collapse:collapse;font-size:.875rem;font-variant-numeric:tabular-nums}
+    th,td{padding:12px 11px;border-bottom:1px solid #e2e7ed;text-align:right;vertical-align:middle}
+    thead th{font-weight:500;color:#526171;background:#f5f7fa}
+    thead .groups th{font-size:.75rem;padding-top:8px;padding-bottom:7px}
+    thead .groups th[scope=colgroup]{text-align:center}thead tr:not(.groups) th{text-align:right}
+    th:first-child{text-align:left}tbody th{font-weight:550;min-width:185px}
+    td.metric{white-space:nowrap;min-width:105px}th.assessment,td.assessment{text-align:left;width:32%;min-width:245px}
+    .count{display:block;font-size:.75rem;font-weight:400;color:#526171}
+    .leader{background:#eff5ff}.leader th a{font-weight:650}
+    .note{font-size:.875rem;max-width:1000px}.definitions{display:grid;gap:4px;margin-bottom:0}
+    .definitions p{margin:0}.findings{padding-left:19px;margin:0}.findings li{padding-left:2px;margin:7px 0}
+    strong{font-weight:650}.method{border-top:1px solid #e2e7ed;padding-top:18px;margin-top:22px}
+    .method p:last-child{margin-bottom:0}
+    @media(max-width:600px){main{padding:28px 16px 32px}.scope{font-size:.9375rem}th,td{padding:10px}.lead{font-size:.9375rem}}
+    @media print{main{padding:0;max-width:none}table{min-width:0}.table-wrap{overflow:visible}a{color:inherit}thead{display:table-header-group}tr{break-inside:avoid}}
+  </style>
+</head>
+<body><main>
+  <h1>Topic classification benchmark</h1>
+  <p class="scope">5 models · 860 specific topic labels · 800 scored messages</p>
+  <p class="lead"><strong>GLiClass Ultra was the best starting point in this test.</strong> It can suggest labels for review, but still makes too many mistakes for unattended labeling.</p>
+  <div class="table-wrap" role="region" aria-label="Model results; scroll horizontally on small screens" tabindex="0">
+    <table>
+      <thead>
+        <tr class="groups"><th scope="col" rowspan="2">Model</th><th scope="colgroup">One best guess</th><th scope="colgroup" colspan="2">Zero or more labels</th><th class="assessment" scope="col" rowspan="2">Assessment in this test</th></tr>
+        <tr><th scope="col">First choice<br>right</th><th scope="col">Chosen labels<br>right</th><th scope="col">Needed labels<br>found</th></tr>
+      </thead>
+      <tbody><tr data-model="gliclass-ultra" class="leader">
+          <th scope="row"><a href="https://huggingface.co/knowledgator/gliclass-multilang-ultra">GLiClass Ultra</a></th>
+          <td class="metric">70.2%<span class="count">396/564</span></td><td class="metric">48.1%</td><td class="metric">62.5%</td><td class="assessment">Best starting point. Finds more topics, but adds many wrong labels.</td></tr>
+<tr data-model="bge-m3-nli">
+          <th scope="row"><a href="https://huggingface.co/MoritzLaurer/bge-m3-zeroshot-v2.0">BGE-M3 zero-shot v2.0</a></th>
+          <td class="metric">57.4%<span class="count">323/563</span></td><td class="metric">78.5%</td><td class="metric">13.1%</td><td class="assessment">Fewer false alarms, but misses most relevant labels.</td></tr>
+<tr data-model="gliner25">
+          <th scope="row"><a href="https://huggingface.co/fastino/gliner2.5-multi-v1">GLiNER2.5</a></th>
+          <td class="metric">55.0%<span class="count">310/564</span></td><td class="metric">34.5%</td><td class="metric">39.5%</td><td class="assessment">Many wrong and missed labels. Needs substantial review.</td></tr>
+<tr data-model="gliclass-mini">
+          <th scope="row"><a href="https://huggingface.co/knowledgator/gliclass-multilang-mini">GLiClass Mini</a></th>
+          <td class="metric">51.0%<span class="count">287/563</span></td><td class="metric">36.0%</td><td class="metric">36.9%</td><td class="assessment">Similar to GLiNER here. Too imprecise for automatic labeling.</td></tr>
+<tr data-model="mdeberta-nli">
+          <th scope="row"><a href="https://huggingface.co/MoritzLaurer/mDeBERTa-v3-base-xnli-multilingual-nli-2mil7">mDeBERTa NLI</a></th>
+          <td class="metric">12.3%<span class="count">69/563</span></td><td class="metric">7.2%</td><td class="metric">26.0%</td><td class="assessment">Weakest here. Most of its selected labels were wrong.</td></tr></tbody>
+    </table>
+  </div>
+  <div class="note definitions">
+    <p><strong>First choice right:</strong> the top suggestion matches one of the right labels. Only messages with a matching label count.</p>
+    <p><strong>Chosen labels right:</strong> of the labels selected, how many were correct. <strong>Needed labels found:</strong> how many of the right labels were found.</p>
+    <p>The last two columns accept labels above a chosen score, allowing several labels or none. Higher is better in all three columns.</p>
+  </div>
+  <h2>What this means</h2>
+  <ul class="findings">
+    <li><strong>A useful suggestion is not a complete answer.</strong> Ultra got the entire label list right on only 34% of messages.</li>
+    <li><strong>“No match” matters.</strong> Always choosing one label was wrong on all 236 messages with no matching label.</li>
+    <li><strong>Fine details get mixed up.</strong> Ultra added “repair work” to an outage notice that gave no reason. A high score can still be wrong.</li>
+    <li><strong>These runs choose existing labels.</strong> New topics need a separate step.</li>
+  </ul>
+  <div class="method note">
+    <p><strong>How we tested:</strong> 1,000 real Telegram posts, comments and group messages from a frozen set of 32,245. We used 200 to choose settings, then scored the other 800. GLiClass and GLiNER received the closest labels that fit their input; BGE and mDeBERTa checked all 860. Missed shortlist labels count as misses.</p>
+    <p><strong>Limits:</strong> AI wrote the reference answers; they have not had independent human verification. The messages helped define the labels, and earlier results had already been examined. Uncertain answers are excluded. These are results for our tested setups, not guaranteed real-world accuracy.</p>
+  </div>
+</main></body></html>
