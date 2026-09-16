@@ -42,19 +42,19 @@
       </thead>
       <tbody><tr data-model="gliclass-ultra" class="leader">
           <th scope="row"><a href="https://huggingface.co/knowledgator/gliclass-multilang-ultra">GLiClass Ultra</a></th>
-          <td class="metric">70.2%<span class="count">396/564</span></td><td class="assessment">Best here, but still needs human review.</td></tr>
+          <td class="metric">70.2%<span class="count">396 correct · 564 total</span></td><td class="assessment">Best here, but still needs human review.</td></tr>
 <tr data-model="bge-m3-nli">
           <th scope="row"><a href="https://huggingface.co/MoritzLaurer/bge-m3-zeroshot-v2.0">BGE-M3 zero-shot v2.0</a></th>
-          <td class="metric">57.4%<span class="count">323/563</span></td><td class="assessment">Second best. Still often picks the wrong topic.</td></tr>
+          <td class="metric">57.4%<span class="count">323 correct · 564 total</span></td><td class="assessment">Second best. Still often picks the wrong topic.</td></tr>
 <tr data-model="gliner25">
           <th scope="row"><a href="https://huggingface.co/fastino/gliner2.5-multi-v1">GLiNER2.5</a></th>
-          <td class="metric">55.0%<span class="count">310/564</span></td><td class="assessment">Slightly better than Mini. Needs substantial review.</td></tr>
+          <td class="metric">55.0%<span class="count">310 correct · 564 total</span></td><td class="assessment">Slightly better than Mini. Needs substantial review.</td></tr>
 <tr data-model="gliclass-mini">
           <th scope="row"><a href="https://huggingface.co/knowledgator/gliclass-multilang-mini">GLiClass Mini</a></th>
-          <td class="metric">51.0%<span class="count">287/563</span></td><td class="assessment">About half of its top choices were wrong.</td></tr>
+          <td class="metric">51.0%<span class="count">287 correct · 564 total</span></td><td class="assessment">About half of its top choices were wrong.</td></tr>
 <tr data-model="mdeberta-nli">
           <th scope="row"><a href="https://huggingface.co/MoritzLaurer/mDeBERTa-v3-base-xnli-multilingual-nli-2mil7">mDeBERTa NLI</a></th>
-          <td class="metric">12.3%<span class="count">69/563</span></td><td class="assessment">Weakest here. Most top choices were wrong.</td></tr></tbody>
+          <td class="metric">12.3%<span class="count">69 correct · 564 total</span></td><td class="assessment">Weakest here. Most top choices were wrong.</td></tr></tbody>
     </table>
   </div>
   <div class="note definitions">
@@ -70,6 +70,6 @@
   </ul>
   <p class="note">A <a href="https://huggingface.co/Qwen/Qwen3.8-27B">long-context LLM</a> has room for more labels and rules. If none of the topics match, it can suggest a new one.</p>
   <div class="method note">
-    <p><strong>How we tested:</strong> We checked one highest-scoring label for each of 564 real Telegram posts, comments and group messages with at least one matching topic. No threshold was used. Uncertain choices were excluded. GLiClass and GLiNER used the closest labels that fit their input; BGE and mDeBERTa considered all 860.</p>
+    <p><strong>How we tested:</strong> We checked one highest-scoring label for each of 564 real Telegram posts, comments and group messages with at least one matching topic. No threshold was used. Uncertain choices were excluded. GLiClass and GLiNER used the closest labels that fit their input; BGE and mDeBERTa checked the full label list for all 564 messages.</p>
   </div>
 </main></body></html>
