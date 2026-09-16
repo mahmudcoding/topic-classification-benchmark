@@ -67,11 +67,11 @@
   </div>
   <h2>Practical limits compared with an LLM</h2>
   <ul class="findings">
-    <li><strong>Limited room for text and labels.</strong> With our settings, GLiClass considered about 55 labels per message and GLiNER 240, out of 860. A shortlist can leave out the right label.</li>
-    <li><strong>More labels mean more work.</strong> BGE and mDeBERTa compare each message with each label separately. Thousands of labels require thousands of comparisons.</li>
-    <li><strong>Missing context needs a separate decision.</strong> These runs can return no labels, but do not distinguish “no matching topic” from “not enough context.” That needs an explicit label or another check.</li>
-    <li><strong>Limited answers.</strong> These runs return supplied labels and scores. They do not write explanations or suggest new topics.</li>
-    <li><strong>Fine details get mixed up.</strong> Ultra added “repair work” to an outage notice that gave no reason. A high score can still be wrong.</li>
+    <li><strong>Limited room for text and labels.</strong> Input limits: GLiClass Mini/Ultra <strong>1,024 tokens</strong>; GLiNER <strong>4,096</strong>; BGE <strong>8,192</strong>; mDeBERTa <strong>512</strong>. Tokens are pieces of words. GLiClass and GLiNER fit about 55 and 240 labels per message in our test, out of 860. A shortlist can leave out the right label.</li>
+    <li><strong>Multiple labels are unreliable.</strong> Selecting several labels needs a score cutoff. We have not found a cutoff that reliably separates correct labels from incorrect ones.</li>
+    <li><strong>No “not enough context” choice.</strong> In this setup, models cannot choose that answer. They return labels or an empty list.</li>
+    <li><strong>Limited answers.</strong> These runs return supplied labels and scores. They do not suggest new topics.</li>
+    <li><strong>Fine details get mixed up.</strong> Models can confuse similar topics and select labels the text does not support. A high score can still be wrong.</li>
   </ul>
   <p class="note">A <a href="https://huggingface.co/Qwen/Qwen3.8-27B">long-context LLM</a> has room for more labels, rules and conversation history together. It can also be asked to explain choices, flag missing information or suggest new topics. It can still make mistakes.</p>
   <div class="method note">

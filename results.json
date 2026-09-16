@@ -28,8 +28,37 @@
       "gliclass-ultra": 1024,
       "gliner25": 4096
     },
-    "context_scope": "Recorded settings, not universal architecture limits. Candidate counts depend on message and label lengths.",
-    "missing_context": "The tested decision rules output labels or an empty list, without a separate insufficient-context outcome. An explicit label or additional check can be added.",
+    "context_limits": {
+      "gliclass-mini": {
+        "tested_tokens": 1024,
+        "scope": "Maximum input accepted by the classification pipeline used in this report."
+      },
+      "gliclass-ultra": {
+        "tested_tokens": 1024,
+        "scope": "Maximum input accepted by the classification pipeline used in this report."
+      },
+      "gliner25": {
+        "tested_tokens": 4096,
+        "default_tokens": 4096,
+        "scope": "Checkpoint max_len default, not a universal architecture ceiling.",
+        "source": "https://huggingface.co/fastino/gliner2.5-multi-v1/blob/aaecfe45db1d828c963717054ccb868e8ad1f1d5/config.json"
+      },
+      "bge-m3-nli": {
+        "tested_tokens": 8192,
+        "maximum_tokens": 8192,
+        "scope": "8,194 positional entries minus the XLM-R position offset of 2; the saved tokenizer default of 512 was overridden in this benchmark.",
+        "source": "https://huggingface.co/MoritzLaurer/bge-m3-zeroshot-v2.0/blob/9abf1c8aaeb82a2447809c20753ed0b106b76652/config.json"
+      },
+      "mdeberta-nli": {
+        "tested_tokens": 512,
+        "default_tokens": 512,
+        "scope": "Tokenizer default and tested limit; relative attention does not impose a hard 512-token ceiling.",
+        "source": "https://huggingface.co/MoritzLaurer/mDeBERTa-v3-base-xnli-multilingual-nli-2mil7/blob/b5113eb38ab63efdd7f280f8c144ea8b13f978ce/tokenizer_config.json"
+      }
+    },
+    "context_scope": "Input limits used by the classification pipelines. Candidate counts depend on message and label lengths.",
+    "multiple_labels": "These models support multiple labels. Tuned score cutoffs were used, but reliable separation of correct and incorrect labels has not been established for this task.",
+    "missing_context": "The tested decision rules output labels or an empty list; they cannot return a separate not-enough-context answer in this setup.",
     "llm_comparison": "Larger prompts and flexible generated responses are capabilities, not a measured LLM accuracy result in this report.",
     "llm_source": "https://huggingface.co/Qwen/Qwen3.8-27B"
   },
